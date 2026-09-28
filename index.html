@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA — AI Story Writing & Creation Sanctuary</title>
+  <meta name="description" content="A peaceful botanical environment for authors to write, edit, and explore storytelling with AI." />
+
+  <!-- Nature Green Leaf Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>" />
+
+  <!-- Supabase Official Client JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Botanical Nature Green Design System Styles -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/splash.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/onboarding.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/workspace.css" />
+  <link rel="stylesheet" href="css/ai-assistant.css" />
+</head>
+<body>
+
+  <!-- Ambient Animated Botanical Background -->
+  <div class="ambient-botanical-bg">
+    <div class="botanical-orb orb-sacramento"></div>
+    <div class="botanical-orb orb-sage"></div>
+    <div class="botanical-orb orb-fern"></div>
+  </div>
+
+  <div id="app">
+
+    <!-- ======================================================================
+         1. OPENING SPLASH SCREEN
+         (The word 'AURA' and the provided PFP appear strictly here only)
+         ====================================================================== -->
+    <main class="app-view active" id="view-splash">
+      <div class="splash-container">
+        
+        <!-- User-Provided AURA PFP / Logo -->
+        <div class="aura-pfp-wrapper">
+          <img src="assets/images/aura-logo.png" alt="AURA" class="aura-pfp-image" onerror="this.src='assets/images/aura-logo.jpeg'" />
+        </div>
+
+        <div class="splash-crest">
+          <span>🌿</span> Nature-Inspired Storytelling Sanctuary
+        </div>
+
+        <p class="splash-tagline">Where every story finds its soul.</p>
+        <p class="splash-description">An elegant, peaceful writing platform designed for daily authors to inscribe, organize, and elevate their stories chapter by chapter.</p>
+
+        <div class="splash-actions">
+          <button class="btn btn-primary btn-lg" id="btn-splash-signin">Sign In</button>
+          <button class="btn btn-secondary btn-lg" id="btn-splash-create">Create Account</button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ======================================================================
+         2. FIRST-TIME USER ONBOARDING (4 Guided Storytelling Slides)
+         ====================================================================== -->
+    <section class="app-view" id="view-onboarding">
+      <div class="onboarding-card-wrapper">
+        
+        <div class="onboarding-progress-dots">
+          <div class="dot-step active"></div>
+          <div class="dot-step"></div>
+          <div class="dot-step"></div>
+          <div class="dot-step"></div>
+        </div>
+
+        <div class="onboarding-slides-viewport">
+          
+          <!-- Slide 1: Create -->
+          <div class="onboarding-slide active" data-index="0">
+            <div class="slide-botanical-icon">📓</div>
+            <h2 class="slide-title">Create</h2>
+            <div class="slide-subtitle">Create your own stories and notebooks.</div>
+            <p class="slide-text">Inscribe fresh manuscripts tailored with titles, genres, and world notes. Your library begins completely clean, ready for your original imagination.</p>
+            <div class="slide-preview-box">
+              <span>🌿 Clean Notebooks</span>
+              <span>•</span>
+              <span>🔒 Private Vault</span>
+              <span>•</span>
+              <span>📖 Genre Tagging</span>
+            </div>
+          </div>
+
+          <!-- Slide 2: Write -->
+          <div class="onboarding-slide" data-index="1">
+            <div class="slide-botanical-icon">🪶</div>
+            <h2 class="slide-title">Write</h2>
+            <div class="slide-subtitle">Write your story chapter by chapter.</div>
+            <p class="slide-text">Enjoy a tranquil, distraction-free manuscript canvas. Seamlessly reorder chapters, track word counts, and trust uninterrupted automatic saves.</p>
+            <div class="slide-preview-box">
+              <span>📑 Multi-Chapter</span>
+              <span>•</span>
+              <span>💾 Continuous Autosave</span>
+              <span>•</span>
+              <span>🧘 Zen Mode</span>
+            </div>
+          </div>
+
+          <!-- Slide 3: Improve with AI -->
+          <div class="onboarding-slide" data-index="2">
+            <div class="slide-botanical-icon">✨</div>
+            <h2 class="slide-title">Improve with AI</h2>
+            <div class="slide-subtitle">Fix errors, improve writing, rewrite sections, or explore new ideas with AI.</div>
+            <p class="slide-text">Highlight any phrase in the editor for instant contextual actions, or receive three tailored rewrite options (Subtle, Emotional, Dramatic) with 1-click application.</p>
+            <div class="slide-preview-box">
+              <span>🔍 Diagnostic Diffs</span>
+              <span>•</span>
+              <span>🎭 3 Rewriting Options</span>
+              <span>•</span>
+              <span>🖋️ Scene Continuation</span>
+            </div>
+          </div>
+
+          <!-- Slide 4: Organize -->
+          <div class="onboarding-slide" data-index="3">
+            <div class="slide-botanical-icon">📚</div>
+            <h2 class="slide-title">Organize</h2>
+            <div class="slide-subtitle">Keep all your stories organized by genre.</div>
+            <p class="slide-text">Categorize your chronicles effortlessly with clean genre filters on the left panel. Search across manuscript titles and chapter prose with live results.</p>
+            <div class="slide-preview-box">
+              <span>🌲 Genre Navigation</span>
+              <span>•</span>
+              <span>⚡ Fast Text Search</span>
+              <span>•</span>
+              <span>📄 TXT & PDF Export</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="onboarding-footer">
+          <button class="btn btn-ghost" id="btn-onboard-skip">Skip</button>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary" id="btn-onboard-prev" style="visibility:hidden;">← Back</button>
+            <button class="btn btn-secondary" id="btn-onboard-next">Continue →</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. MAIN DASHBOARD (Left Genres | Right Notebooks)
+         ====================================================================== -->
+    <section class="app-view" id="view-dashboard">
+      
+      <!-- Top Navigation Bar -->
+      <header class="dashboard-navbar">
+        <div class="nav-brand-section">
+          <button class="btn-icon mobile-genre-toggle-btn" id="btn-mobile-genre-toggle" title="Toggle Genres">🌿</button>
+          <div class="brand-leaf-icon">🍃</div>
+          <span class="app-library-label">Story Sanctuary</span>
+        </div>
+
+        <div class="dashboard-nav-actions">
+          <button class="btn-icon" id="btn-theme-toggle" title="Toggle Daylight / Twilight mode">☀️</button>
+          <button class="btn-icon" id="btn-settings-trigger" title="Settings & Account">⚙️</button>
+          
+          <div class="user-profile-pill" id="user-profile-trigger">
+            <span class="user-avatar-badge" id="user-avatar-initial">A</span>
+            <span id="user-profile-name">Author</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Body: Split Layout -->
+      <div class="dashboard-body-layout">
+        
+        <!-- LEFT SIDE: GENRES NAVIGATION -->
+        <aside class="genre-sidebar-panel" id="genre-sidebar">
+          <div class="genre-panel-header">
+            <span class="genre-header-title">
+              <span>🌿</span> Genres
+            </span>
+          </div>
+
+          <nav class="genre-list-container" id="genre-nav-list">
+            <!-- Dynamically populated from CONFIG.GENRES -->
+          </nav>
+        </aside>
+
+        <!-- RIGHT SIDE: NOTEBOOKS & STORIES -->
+        <main class="notebooks-main-panel">
+          
+          <div class="dashboard-subnav">
+            <div class="active-genre-title-display">
+              <h1 class="genre-display-title" id="active-genre-title">📖 All Manuscripts</h1>
+              <span class="genre-display-count" id="active-genre-count">0 manuscripts</span>
+            </div>
+
+            <div class="dashboard-tools-bar">
+              <div class="search-field-wrapper">
+                <span class="search-field-icon">🔍</span>
+                <input type="text" class="search-field-input" id="dashboard-search-input" placeholder="Search manuscripts, chapters, or prose..." />
+              </div>
+
+              <select class="sort-dropdown" id="dashboard-sort-select">
+                <option value="updated_desc">Recently Updated</option>
+                <option value="created_desc">Date Created</option>
+                <option value="title_asc">Title (A to Z)</option>
+                <option value="chapters_desc">Most Chapters</option>
+              </select>
+
+              <button class="btn btn-primary" id="btn-create-notebook-trigger">
+                <span>+</span> Inscribe Notebook
+              </button>
+            </div>
+          </div>
+
+          <!-- Notebooks Grid (Initially starts empty as required) -->
+          <div class="notebooks-grid-container" id="notebooks-grid">
+            <!-- Dynamically populated with user cards or friendly empty states -->
+          </div>
+
+        </main>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. STORY WORKSPACE (Notebook / Chapter Writing Studio)
+         (Note: Large AURA title is NOT repeated here)
+         ====================================================================== -->
+    <section class="app-view" id="view-workspace">
+      
+      <!-- Workspace Topbar -->
+      <nav class="workspace-topbar">
+        <div class="workspace-topbar-left">
+          <button class="btn btn-secondary btn-sm" id="btn-back-to-library">
+            ← Library
+          </button>
+          
+          <button class="btn-icon" id="btn-toggle-chapters-sidebar" title="Toggle Chapters Sidebar" style="margin-left: 4px;">
+            📑
+          </button>
+
+          <!-- Editable Story Title -->
+          <div class="story-title-editable-wrapper">
+            <span class="story-title-display" id="topbar-story-title" title="Click to rename story">Untitled Manuscript</span>
+            <input type="text" class="story-title-input" id="topbar-story-title-input" />
+          </div>
+        </div>
+
+        <div class="workspace-topbar-center">
+          <!-- Auto-save Status Indicator -->
+          <div class="autosave-status-pill saved" id="autosave-indicator">
+            <span class="autosave-dot"></span>
+            <span>Saved ✓</span>
+          </div>
+
+          <!-- Word Count & Reading Time -->
+          <div class="writing-metrics-pill">
+            <span id="editor-word-count">0 words</span>
+            <span>•</span>
+            <span id="editor-reading-time">1 min read</span>
+          </div>
+        </div>
+
+        <div class="workspace-topbar-right">
+          <button class="btn-icon" id="btn-toggle-zen" title="Zen Focus Mode">🧘</button>
+          <button class="btn btn-secondary btn-sm" id="btn-export-story" title="Export manuscript">
+            📥 Export
+          </button>
+          <button class="btn-icon" id="btn-toggle-ai-studio" title="Toggle AI Companion">✨</button>
+        </div>
+      </nav>
+
+      <!-- Workspace Tri-Pane Layout -->
+      <div class="workspace-layout">
+        
+        <!-- LEFT: CHAPTER NAVIGATION -->
+        <aside class="chapters-sidebar" id="chapters-sidebar">
+          <div class="chapters-sidebar-header">
+            <span class="chapters-sidebar-title">Chapters</span>
+          </div>
+
+          <div class="add-chapter-action-bar">
+            <button class="btn btn-add-chapter" id="btn-add-chapter">
+              + New Chapter
+            </button>
+          </div>
+
+          <div class="chapters-scroll-list" id="chapters-list-container">
+            <!-- Dynamically populated chapters -->
+          </div>
+        </aside>
+
+        <!-- CENTER: MANUSCRIPT WRITING CANVAS -->
+        <main class="editor-pane">
+          
+          <!-- Formatting Toolbar -->
+          <div class="editor-toolbar">
+            <div class="toolbar-buttons-cluster">
+              <button class="tbar-btn" id="tbar-undo" title="Undo (Ctrl+Z)">↺</button>
+              <button class="tbar-btn" id="tbar-redo" title="Redo (Ctrl+Y)">↻</button>
+              <span class="tbar-separator"></span>
+              <button class="tbar-btn" id="tbar-bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+              <button class="tbar-btn" id="tbar-italic" title="Italic (Ctrl+I)"><em>I</em></button>
+              <span class="tbar-separator"></span>
+              <button class="tbar-btn" id="tbar-break" title="Scene Break (* * *)">* * *</button>
+            </div>
+
+            <div style="font-size:12px; color:var(--text-muted); font-style:italic;">
+              Highlight text to summon AI actions
+            </div>
+          </div>
+
+          <!-- Writing Canvas -->
+          <div class="manuscript-canvas-viewport">
+            <div class="manuscript-paper">
+              <!-- Dedicated Chapter Title Input -->
+              <input type="text" class="active-chapter-title-field" id="active-chapter-title-input" placeholder="Chapter Title..." value="Chapter 1" />
+              <!-- Manuscript Textarea -->
+              <textarea class="manuscript-textarea" id="manuscript-editor-textarea" placeholder="The story begins beneath quiet boughs..."></textarea>
+            </div>
+          </div>
+
+          <!-- FLOATING CONTEXTUAL SELECTION AI MENU -->
+          <div class="contextual-selection-menu" id="contextual-ai-menu">
+            <button class="context-action-btn primary" data-action="improve">✨ Improve</button>
+            <button class="context-action-btn" data-action="errors">🔍 Fix Errors</button>
+            <button class="context-action-btn" data-action="rewrite">🎭 Rewrite</button>
+            <button class="context-action-btn" data-action="expand">🌱 Expand</button>
+            <button class="context-action-btn" data-action="shorten">✂️ Shorten</button>
+            <button class="context-action-btn" data-action="emotional">🤍 Emotional</button>
+            <button class="context-action-btn" data-action="dramatic">⚡ Dramatic</button>
+            <span class="context-divider"></span>
+            <button class="context-action-btn" data-action="ask">Ask AI</button>
+          </div>
+
+        </main>
+
+        <!-- RIGHT: AI STORYTELLING STUDIO & STORY MEMORY -->
+        <aside class="ai-studio-panel" id="ai-studio-panel">
+          
+          <div class="studio-top-header">
+            <div class="studio-title-badge">
+              <span class="studio-leaf-sparkle">🪶</span>
+              <span>Writing Companion</span>
+            </div>
+
+            <div class="studio-tab-group">
+              <button class="studio-tab-btn active" id="tab-studio-chat">Assistant</button>
+              <button class="studio-tab-btn" id="tab-studio-memory">Memory</button>
+            </div>
+          </div>
+
+          <!-- TAB 1: AI ASSISTANT & CHAT STREAM -->
+          <div id="studio-chat-view" style="display:flex; flex-direction:column; flex:1; overflow:hidden;">
+            
+            <!-- Writing Modes Bar -->
+            <div class="writing-modes-bar">
+              <button class="mode-pill active" data-mode="improve">Improve</button>
+              <button class="mode-pill" data-mode="errors">Fix Errors</button>
+              <button class="mode-pill" data-mode="rewrite">Rewrite (3 Options)</button>
+              <button class="mode-pill" data-mode="continue">Continue Scene</button>
+              <button class="mode-pill" data-mode="emotional">Emotional</button>
+              <button class="mode-pill" data-mode="dramatic">Dramatic</button>
+              <button class="mode-pill" data-mode="dialogue">Dialogue</button>
+              <button class="mode-pill" data-mode="brainstorm">Brainstorm</button>
+              <button class="mode-pill" data-mode="inconsistency">Inconsistencies</button>
+              <button class="mode-pill" data-mode="pacing">Pacing</button>
+              <button class="mode-pill" data-mode="ask">Ask AI</button>
+            </div>
+
+            <!-- Messages List -->
+            <div class="studio-messages-viewport" id="studio-messages-list">
+              <!-- Dynamically populated assistant responses, diffs, and variation cards -->
+            </div>
+
+            <!-- Generating Loader -->
+            <div class="ai-generating-loader" id="ai-generating-loader">
+              <span class="spinning-leaf">🍃</span>
+              <span>Aura is weaving thoughts...</span>
+            </div>
+
+            <!-- Input Tray -->
+            <div class="studio-input-tray">
+              <div class="studio-input-box">
+                <textarea class="studio-textarea" id="studio-prompt-input" placeholder="Ask Aura or select a passage to improve..."></textarea>
+                <div class="studio-input-meta-bar">
+                  <div class="selected-text-indicator" id="selected-excerpt-badge" style="display:none;"></div>
+                  <button class="btn-send-ai" id="btn-send-studio-msg" title="Send to Aura">➤</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TAB 2: STORY CONTEXT MEMORY (Characters & Worldbuilding) -->
+          <div class="story-memory-tab-content" id="studio-memory-view">
+            
+            <!-- Characters Section -->
+            <div class="memory-section-card">
+              <div class="memory-section-header">
+                <span class="memory-section-title">
+                  <span>🎭</span> Dramatis Personae
+                </span>
+                <button class="btn btn-secondary btn-sm" id="btn-add-character-trigger">+ Character</button>
+              </div>
+              <div id="characters-list">
+                <!-- Dynamically populated character dossiers -->
+              </div>
+            </div>
+
+            <!-- Worldbuilding Section -->
+            <div class="memory-section-card">
+              <div class="memory-section-header">
+                <span class="memory-section-title">
+                  <span>🏰</span> Worldbuilding Lore
+                </span>
+                <button class="btn btn-secondary btn-sm" id="btn-add-worldbuilding-trigger">+ Lore</button>
+              </div>
+              <div id="worldbuilding-list">
+                <!-- Dynamically populated world rules & locations -->
+              </div>
+            </div>
+
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================================================================
+       MODALS
+       ====================================================================== -->
+
+  <!-- Modal: Sign In -->
+  <div class="modal-backdrop" id="modal-signin">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Welcome Back</h2>
+        <p>Return to your manuscripts and continue writing.</p>
+      </div>
+      <form id="form-signin">
+        <div class="form-group">
+          <label class="form-label">Username or Email</label>
+          <input type="text" class="form-input" id="signin-identifier" required placeholder="author@domain.com or author_name" />
+        </div>
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label class="form-label" style="margin-bottom:0;">Password</label>
+            <a class="forgot-password-link" id="link-forgot-password">Forgot password?</a>
+          </div>
+          <div class="password-field-wrapper" style="margin-top:6px;">
+            <input type="password" class="form-input" id="signin-password" required placeholder="••••••••" />
+            <button type="button" class="toggle-password-btn" data-target="signin-password">👁️</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">Sign In</button>
+      </form>
+      <div class="auth-switch-text">
+        New to Aura? <a id="link-switch-create">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create Account -->
+  <div class="modal-backdrop" id="modal-create-account">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Inscribe Your Account</h2>
+        <p>Begin your personal storytelling sanctuary.</p>
+      </div>
+      <form id="form-register">
+        <div class="form-group">
+          <label class="form-label">Author Name / Username</label>
+          <input type="text" class="form-input" id="reg-username" required placeholder="e.g. Rowan_Valen" />
+          <div class="form-hint">Unique author identifier visible in your library.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="reg-email" required placeholder="author@domain.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Secure Password</label>
+          <div class="password-field-wrapper">
+            <input type="password" class="form-input" id="reg-password" required placeholder="••••••••" />
+            <button type="button" class="toggle-password-btn" data-target="reg-password">👁️</button>
+          </div>
+          
+          <!-- Live Password Requirements Indicators -->
+          <div class="password-requirements-card">
+            <div class="requirements-title">Security Requirements:</div>
+            <div class="requirement-item invalid" id="req-upper">
+              <span class="req-icon">✓</span> At least one uppercase letter (A-Z)
+            </div>
+            <div class="requirement-item invalid" id="req-lower">
+              <span class="req-icon">✓</span> At least one lowercase letter (a-z)
+            </div>
+            <div class="requirement-item invalid" id="req-number">
+              <span class="req-icon">✓</span> At least one number (0-9)
+            </div>
+            <div class="requirement-item invalid" id="req-special">
+              <span class="req-icon">✓</span> At least one special symbol (!@#$%^&*)
+            </div>
+            <div class="requirement-item invalid" id="req-length">
+              <span class="req-icon">✓</span> Minimum 8 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Date of Birth</label>
+          <input type="date" class="form-input" id="reg-dob" required />
+          <!-- Age Verification Explanation -->
+          <div class="age-verification-box">
+            <span class="age-icon">🛡️</span>
+            <div class="age-text">
+              <strong>Age-Based Content Access</strong>
+              Stories in Aura may contain mature themes (intimacy, sensitive drama, or dark fictional conflict). Your date of birth is kept strictly private and used solely to gate restricted mature features.
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:14px;">Create Author Account</button>
+      </form>
+      <div class="auth-switch-text">
+        Already have an account? <a id="link-switch-signin">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create Notebook -->
+  <div class="modal-backdrop" id="modal-create-notebook">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Inscribe New Notebook</h2>
+        <p>Set the foundations for your next story.</p>
+      </div>
+      <form id="form-create-notebook">
+        <div class="form-group">
+          <label class="form-label">Story Title</label>
+          <input type="text" class="form-input" id="nb-title-input" required placeholder="e.g. Whispers of the Silverwood" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Genre</label>
+          <select class="form-select" id="nb-genre-select">
+            <option value="fantasy">🗡️ Fantasy</option>
+            <option value="romance">🌿 Romance</option>
+            <option value="mystery">🔍 Mystery</option>
+            <option value="thriller">⚡ Thriller</option>
+            <option value="scifi">🚀 Science Fiction</option>
+            <option value="adventure">🧭 Adventure</option>
+            <option value="horror">🕯️ Horror</option>
+            <option value="drama">🎭 Drama</option>
+            <option value="comedy">✨ Comedy</option>
+            <option value="historical">📜 Historical</option>
+            <option value="action">🏹 Action</option>
+            <option value="ya">🌱 Young Adult</option>
+            <option value="other">🍃 Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description / Premise (Optional)</label>
+          <textarea class="form-textarea" id="nb-desc-input" rows="3" placeholder="A brief premise or logline for this story..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">Create & Open Notebook</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Rename Item -->
+  <div class="modal-backdrop" id="modal-rename-item">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2 id="modal-rename-title">Rename Item</h2>
+      </div>
+      <div class="form-group">
+        <label class="form-label">New Name</label>
+        <input type="text" class="form-input" id="rename-item-input" />
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+        <button class="btn btn-secondary" onclick="app.closeActiveModal()">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-rename">Save Name</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm Delete -->
+  <div class="modal-backdrop" id="modal-confirm-delete">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2 id="modal-delete-title" style="color:#A32D2D;">Confirm Deletion</h2>
+        <p id="modal-delete-message">Are you sure you want to permanently delete this item?</p>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button class="btn btn-secondary" onclick="app.closeActiveModal()">Cancel</button>
+        <button class="btn" id="btn-confirm-delete-action" style="background:#A32D2D; color:#FFF;">Permanently Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Export Story -->
+  <div class="modal-backdrop" id="modal-export">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Export Manuscript</h2>
+        <p>Save and export your story in your preferred format.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px;">
+        <button class="btn btn-secondary" id="btn-exp-txt" style="justify-content:flex-start; padding:14px 18px;">
+          <span style="font-size:18px;">📄</span>
+          <div style="text-align:left; margin-left:8px;">
+            <div style="font-weight:600;">Plain Text (.txt)</div>
+            <div style="font-size:12px; color:var(--text-muted);">Clean manuscript with chapter divisions</div>
+          </div>
+        </button>
+
+        <button class="btn btn-secondary" id="btn-exp-md" style="justify-content:flex-start; padding:14px 18px;">
+          <span style="font-size:18px;">📝</span>
+          <div style="text-align:left; margin-left:8px;">
+            <div style="font-weight:600;">Markdown (.md)</div>
+            <div style="font-size:12px; color:var(--text-muted);">Formatted headings, italics, and scene breaks</div>
+          </div>
+        </button>
+
+        <button class="btn btn-secondary" id="btn-exp-pdf" style="justify-content:flex-start; padding:14px 18px;">
+          <span style="font-size:18px;">🖨️</span>
+          <div style="text-align:left; margin-left:8px;">
+            <div style="font-weight:600;">Printable Manuscript / PDF</div>
+            <div style="font-size:12px; color:var(--text-muted);">Book typesetting with browser print preview</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Character -->
+  <div class="modal-backdrop" id="modal-add-character">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Add Character Dossier</h2>
+        <p>Register a character so Aura preserves their voice and facts.</p>
+      </div>
+      <form id="form-add-character">
+        <div class="form-group">
+          <label class="form-label">Character Name</label>
+          <input type="text" class="form-input" id="char-name-input" required placeholder="e.g. Arjun Vance" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role / Occupation</label>
+          <input type="text" class="form-input" id="char-role-input" placeholder="e.g. Royal Guard Commander" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Personality & Traits</label>
+          <input type="text" class="form-input" id="char-personality-input" placeholder="e.g. Quiet, strict, observant, fiercely loyal" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Appearance & Visuals</label>
+          <input type="text" class="form-input" id="char-appearance-input" placeholder="e.g. Tall, graying temples, scarred left forearm" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Key Notes / Backstory</label>
+          <textarea class="form-textarea" id="char-notes-input" rows="2" placeholder="Relationships, secrets, personal motivations..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">Save Character to Memory</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Worldbuilding -->
+  <div class="modal-backdrop" id="modal-add-worldbuilding">
+    <div class="modal-card">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Add Worldbuilding Rule or Lore</h2>
+        <p>Establish facts about places, magic, factions, or timeline.</p>
+      </div>
+      <form id="form-add-worldbuilding">
+        <div class="form-group">
+          <label class="form-label">Subject / Title</label>
+          <input type="text" class="form-input" id="world-title-input" required placeholder="e.g. The Whispering Forest of Eld" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="world-category-select">
+            <option value="Locations">Locations & Geography</option>
+            <option value="Magic & Rules">Magic / Technology Rules</option>
+            <option value="Factions">Factions & Guilds</option>
+            <option value="Timeline">Timeline & Historical Events</option>
+            <option value="Customs">Customs & Superstitions</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lore Details</label>
+          <textarea class="form-textarea" id="world-details-input" rows="3" required placeholder="Explain how this location or rule behaves so Aura avoids contradictions..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:12px;">Save to World Lore</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Settings -->
+  <div class="modal-backdrop" id="modal-settings">
+    <div class="modal-card modal-card-lg">
+      <button class="modal-close-btn" title="Close">✕</button>
+      <div class="modal-header">
+        <h2>Sanctuary Settings</h2>
+        <p>Manage your account, Supabase database, and AI companion.</p>
+      </div>
+
+      <!-- Account Summary -->
+      <div style="background:var(--bg-app); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:16px; margin-bottom:20px;">
+        <h4 style="font-size:15px; margin-bottom:8px; color:var(--text-primary);">Author Profile</h4>
+        <div style="font-size:13.5px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div><strong>Username:</strong> <span id="settings-username-display">Author</span></div>
+          <div><strong>Email:</strong> <span id="settings-email-display">author@domain.com</span></div>
+          <div><strong>DOB:</strong> <span id="settings-dob-display">Protected</span></div>
+          <div id="settings-minor-notice" style="color:var(--c-apple); display:none;"><strong>Mode:</strong> Junior Safe Storytelling</div>
+        </div>
+      </div>
+
+      <!-- Supabase Cloud Connection -->
+      <div class="form-group">
+        <label class="form-label">Supabase Cloud Database (Optional)</label>
+        <div class="form-hint" style="margin-bottom:8px;">Aura works 100% offline out-of-the-box. Connect your Supabase project URL and anon key for cloud sync across devices.</div>
+        <input type="text" class="form-input" id="cfg-supabase-url" placeholder="https://xyzcompany.supabase.co" style="margin-bottom:8px;" />
+        <input type="password" class="form-input" id="cfg-supabase-key" placeholder="Supabase Anon Public API Key" />
+      </div>
+
+      <!-- AI Provider Configuration -->
+      <div class="form-group">
+        <label class="form-label">Google Gemini API Key (Optional)</label>
+        <div class="form-hint" style="margin-bottom:8px;">Aura includes an intelligent built-in literary engine. Add a Gemini API key to activate Gemini 1.5 Flash live cloud inference.</div>
+        <input type="password" class="form-input" id="cfg-gemini-key" placeholder="AIzaSy..." />
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:16px; border-top:1px solid var(--border-subtle);">
+        <button class="btn btn-outline" id="btn-settings-signout" style="color:#A32D2D; border-color:#A32D2D;">Sign Out</button>
+        <button class="btn btn-primary" id="btn-save-settings">Save Preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container Shelf -->
+  <div id="toast-shelf"></div>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/chapters.js"></script>
+  <script src="js/storyMemory.js"></script>
+  <script src="js/aiEngine.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
